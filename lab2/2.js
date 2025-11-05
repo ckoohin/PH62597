@@ -76,9 +76,8 @@ const rectangle = {
     return `Rectangle ${this.width}x${this.height}, color: ${this.color}`;
   },
 };
-const rec1 = rectangle(width,height,color);
-console.log(rec1.calculateArea());
-console.log(rec1.describe());
+console.log("Diện tích:",rectangle.calculateArea());
+console.log(rectangle.describe());
 
 //ex6
 // Tạo object configuration với computed property names
