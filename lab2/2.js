@@ -35,7 +35,9 @@ const user = {
   price: 25000000,
   orderDate: "2024-01-15",
 };
-const emailTemplate = `Xin chào ${user.firstName} ${user.lastName}, bạn đã mua sản phẩm ${user.product} với giá ${user.price} vào ngày ${user.orderDate}!`; 
+const emailTemplate = `Xin chào ${user.firstName} ${user.lastName}, 
+Cảm ơn bạn đã mua sản phẩm ${user.product} với giá ${user.price} vào ngày ${user.orderDate} tại cửa hàng chúng tôi!
+Trân trọng, Nhớ ủng hộ nhé!`; 
 console.log(emailTemplate);
 
 //ex4
@@ -91,5 +93,10 @@ const features = ["auth", "payment", "notification"];
 // - method: `get${env}Config()`
 
 const config = {
-  // Viết code ở đây
+  [`api_${env}_${version}`]: `https://api.${env}.com/${version}`,
+  ...Object.fromEntries(features.map(f => [`feature_${f}`, true])),
+  [`get${env}Config`]() {
+    return this[`api_${env}_${version}`];
+  },
 };
+console.log(config);
