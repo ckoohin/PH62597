@@ -75,12 +75,22 @@ delay(2000).then(() => console.log("2 seconds passed"));
 
 //ex6
 function fetchMultipleData(urls) {
-  const promises = urls.map((url, i) =>
-    Promise.resolve({url})
+  const promises = urls.map(url =>
+    fetch(url).then(res => {
+      if (!res.ok) {
+        throw new Error(`HTTP error ${res.status} for ${url}`);
+      }
+      return res.json();
+    })
   );
   return Promise.all(promises);
 }
 
-fetchMultipleData(["/api/user/1", "/api/user/2"]).then((users) =>
-  console.log(users)
-);
+fetchMultipleData(["https://jsonplaceholder.typicode.com/users/1","https://jsonplaceholder.typicode.com/users/2"])
+  .then(users => {
+    console.log("Fetched successfully:");
+    console.log(users);
+  })
+  .catch(error => {
+    console.error("Error:", error.message);
+  });
