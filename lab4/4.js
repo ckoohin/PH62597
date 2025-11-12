@@ -94,3 +94,19 @@ fetchMultipleData(["https://jsonplaceholder.typicode.com/users/1","https://jsonp
   .catch(error => {
     console.error("Error:", error.message);
   });
+
+//ex7
+async function processOrder(orderId) {
+  try {
+    const order = await getOrder(orderId);
+    const user = await getUser(order.userId);
+    const products = await getProducts(order.productIds);
+    return { order, user, products };
+  } catch (error) {
+    console.error("Error:", error);
+    throw error;
+  }
+}
+processOrder(123)
+  .then((result) => console.log(result))
+  .catch((err) => console.error(err));
