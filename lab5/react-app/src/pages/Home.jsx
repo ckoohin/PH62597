@@ -1,5 +1,6 @@
 import Footer from "../components/common/Footer";
 import Header from "../components/common/Header";
+import Heading from "../components/common/Heading";
 import TourCard from "../components/tour/TourCard";
 
 function Home() {
@@ -34,9 +35,7 @@ function Home() {
     <div>
       <Header />
       <main>
-        <h1 className="text-3xl text-blue-600 text-center font-bold border-b-2 border-b-orange-400 uppercase">
-          Tour Nội Địa
-        </h1>
+        <Heading title="Tour nội địa"/>
         <p className="text-xl font-medium my-2 px-2">
           Các chuyến đi đồng hành cùng chúng tôi là khoảnh khắc đặc biêt, luôn sẵn
           sàng tạo ra những trải nghiệm độc đáo và không quên cho du khách, giúp
