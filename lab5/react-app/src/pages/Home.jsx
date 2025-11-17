@@ -1,6 +1,7 @@
 import Footer from "../components/common/Footer";
 import Header from "../components/common/Header";
 import Heading from "../components/common/Heading";
+import Navigation from "../components/common/Navigation";
 import TourCard from "../components/tour/TourCard";
 
 function Home() {
@@ -33,7 +34,7 @@ function Home() {
 
   return (
     <div>
-      <Header />
+      <Navigation />
       <main>
         <Heading title="Tour nội địa"/>
         <p className="text-xl font-medium my-2 px-2">
