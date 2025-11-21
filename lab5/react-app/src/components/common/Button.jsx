@@ -1,4 +1,4 @@
-export default function Button({ children, variant = "primary", size = "medium" }) {
+export default function Button({ children, variant = "primary", size = "medium" , onClick}) {
     const baseClasses = "font-semibold rounded-lg transition hover:opacity-90";
 
     const variantClasses = {
@@ -6,6 +6,7 @@ export default function Button({ children, variant = "primary", size = "medium" 
         secondary: "bg-gray-200 text-gray-800 hover:bg-gray-300",
         danger: "bg-red-500 text-white hover:bg-red-600",
         success: "bg-green-500 text-white hover:bg-green-600",
+        custom: "border-2 border-red-800 hover:bg-red-800 hover:text-white",
     };
 
     const sizeClasses = {
@@ -15,7 +16,7 @@ export default function Button({ children, variant = "primary", size = "medium" 
     };
 
     return (
-        <button className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]}`}>
+        <button onClick={onClick} className={`${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]}`}>
             {children}
         </button>
     )

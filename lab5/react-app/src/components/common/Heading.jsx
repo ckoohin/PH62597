@@ -1,6 +1,6 @@
 export default function Heading({title}){
     return (
-        <div className="text-2xl font-bold text-blue-500 border-bottom border-b-2 border-blue-500 uppercase inline-block">
+        <div className="text-3xl py-1.5 font-bold text-blue-900 border-bottom border-b-3 border-red-700 uppercase inline-block">
             {title}
         </div>
     )
