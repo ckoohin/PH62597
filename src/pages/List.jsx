@@ -1,0 +1,126 @@
+import { useState, useEffect } from "react";
+import axios from "axios";
+import toast from "react-hot-toast";
+
+function ListPage() {
+  const [tours, setTours] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchTours = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get("http://localhost:3000/tours");
+        setTours(response.data);
+        setError(null);
+      } catch (err) {
+        setError("Không thể tải danh sách tours");
+        console.error("Error:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTours();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="text-lg text-gray-600">Đang tải...</div>
+      </div>
+    );
+  }
+
+  const handleDelete = async id => {
+    try {
+      if (!confirm("Bạn chắc chắn muốn xóa Tour này chứ?")) return;
+      await axios.delete(`http://localhost:3000/tours/${id}`);
+      setTours(tours.filter(t => t.id !== id));
+      toast.success("Xóa thành công");
+    } catch (err) {
+      setError(err.message);
+      toast.error("Có lỗi khi xóa");
+    } 
+  };
+
+  return (
+    <div className="p-6">
+      <h1 className="text-2xl text-center font-semibold mb-6">Danh sách</h1>
+
+      <div className="overflow-x-auto">
+        <table className="w-full border border-gray-300 rounded-lg">
+          <thead className="bg-gray-100">
+            <tr>
+              <th className="px-4 py-2 border border-gray-300 text-left">ID</th>
+              <th className="px-4 py-2 border border-gray-300 text-left">
+                Name
+              </th>
+              <th className="px-4 py-2 border border-gray-300 text-left">
+                Destination
+              </th>
+              <th className="px-4 py-2 border border-gray-300 text-left">
+                Duration
+              </th>
+              <th className="px-4 py-2 border border-gray-300 text-left">
+                Price
+              </th>
+              <th className="px-4 py-2 border border-gray-300 text-left">
+                Image
+              </th>
+              <th className="px-4 py-2 border border-gray-300 text-left">
+                Description
+              </th>
+              <th className="px-4 py-2 border border-gray-300 text-left">
+                Available
+              </th>
+              <th className="px-4 py-2 border border-gray-300 text-left">
+                Action
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {tours.map((tour) => (
+              <tr className="hover:bg-gray-50" key={tour.id}>
+                <td className="px-4 py-2 border border-gray-300">{tour.id}</td>
+                <td className="px-4 py-2 border border-gray-300">
+                  {tour.name}
+                </td>
+                <td className="px-4 py-2 border border-gray-300">
+                  {tour.destination}
+                </td>
+                <td className="px-4 py-2 border border-gray-300">
+                  {tour.duration}
+                </td>
+                <td className="px-4 py-2 border border-gray-300">
+                  {tour.price}
+                </td>
+                <td className="px-4 py-2 border border-gray-300">
+                  <img src={tour.image} className="max-w-60" alt="" />
+                </td>
+                <td className="px-4 py-2 border border-gray-300">
+                  {tour.description}
+                </td>
+                <td className="px-4 py-2 border border-gray-300">
+                  {tour.available}
+                </td>
+                <td className="px-4 py-2 border border-gray-300">
+                  <button
+                    onClick={() => handleDelete(tour.id)}
+                    className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                  >
+                    Xóa
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}
+
+export default ListPage;
