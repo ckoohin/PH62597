@@ -55,6 +55,7 @@ function EditPage() {
     try {
       await axios.put(`http://localhost:3000/tours/${id}`, newTour);
       toast.success("Sửa tour thành công");
+      window.location.href = "/list";
     } catch (err) {
       toast.error("Lỗi thêm tour", err.message);
       console.error(err);

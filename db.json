@@ -9,10 +9,10 @@
       "description": "Khám phá Sapa với những ruộng bậc thang tuyệt đẹp",
       "available": 15,
       "active": true,
+      "category": "tour châu âu",
       "id": 1
     },
     {
-      "id": 2,
       "name": "Hạ Long - Cát Bà 2N1D",
       "destination": "Hạ Long",
       "duration": "2 ngày 1 đêm",
@@ -20,8 +20,9 @@
       "image": "https://picsum.photos/400/300?random=2",
       "description": "Du thuyền vịnh Hạ Long - Kỳ quan thiên nhiên thế giới",
       "available": 20,
-      "category ": "tour nội địa",
-      "active": true
+      "active": true,
+      "category": "tour nội địa",
+      "id": 2
     },
     {
       "id": 3,

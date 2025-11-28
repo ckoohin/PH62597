@@ -104,7 +104,7 @@ function ListPage() {
                 <td className="px-4 py-2 border border-gray-300">
                   {tour.price}
                 </td>
-                <td className="px-4 py-2 border border-gray-300">
+                <td className="px-4 py-2 border border-gray-300 hover:scale-105 transition">
                   <img src={tour.image} className="max-w-60" alt="" />
                 </td>
                 <td className="px-4 py-2 border border-gray-300">
@@ -119,7 +119,7 @@ function ListPage() {
                 <td className="px-4 py-2 border border-gray-300">
                   {tour.category}
                 </td>
-                <td className="px-4 py-2 border border-gray-300">
+                <td className="flex gap-3 px-4 py-20 border border-gray-300">
                   <button
                     onClick={() => handleDelete(tour.id)}
                     className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
