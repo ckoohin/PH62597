@@ -1,16 +1,15 @@
 {
   "tours": [
     {
-      "id": 1,
-      "name": "Hà Nội - Sapa 3N2D",
+      "name": "Hà Nội - Sapa 2N1D",
       "destination": "Sapa",
-      "duration": "3 ngày 2 đêm",
+      "duration": "2 ngày 1 đêm",
       "price": 2500000,
       "image": "https://picsum.photos/400/300?random=1",
       "description": "Khám phá Sapa với những ruộng bậc thang tuyệt đẹp",
       "available": 15,
-      "category ": "tour nội địa",
-      "active": true
+      "active": true,
+      "id": 1
     },
     {
       "id": 2,
@@ -35,6 +34,18 @@
       "available": 10,
       "category ": "tour nội địa",
       "active": true
+    },
+    {
+      "name": "Test",
+      "destination": "abc",
+      "duration": "4 ngày 3 đêm",
+      "price": 100000,
+      "image": "https://picsum.photos/400/300?random=3",
+      "description": "abc",
+      "available": 20,
+      "active": true,
+      "category": "tour quốc tế",
+      "id": 4
     }
   ]
 }

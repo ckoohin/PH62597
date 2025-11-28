@@ -31,7 +31,7 @@ function AddPage() {
       await axios.post("http://localhost:3000/tours", newTour);
       toast.success("Thêm tour thành công");
     } catch (err) {
-      toast.error("Lỗi thêm tour");
+      toast.error("Lỗi thêm tour",err.message);
       console.error(err);
     }
   };

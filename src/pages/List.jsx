@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 function ListPage() {
   const [tours, setTours] = useState([]);
@@ -76,6 +77,12 @@ function ListPage() {
                 Available
               </th>
               <th className="px-4 py-2 border border-gray-300 text-left">
+                Active
+              </th>
+              <th className="px-4 py-2 border border-gray-300 text-left">
+                Category
+              </th>
+              <th className="px-4 py-2 border border-gray-300 text-left">
                 Action
               </th>
             </tr>
@@ -107,12 +114,21 @@ function ListPage() {
                   {tour.available}
                 </td>
                 <td className="px-4 py-2 border border-gray-300">
+                  {tour.active ? "Hoạt động" : "Đã ngừng"}
+                </td>
+                <td className="px-4 py-2 border border-gray-300">
+                  {tour.category}
+                </td>
+                <td className="px-4 py-2 border border-gray-300">
                   <button
                     onClick={() => handleDelete(tour.id)}
                     className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
                   >
                     Xóa
                   </button>
+                  <Link to={`/edit/${tour.id}`} className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+                    Sửa
+                  </Link>
                 </td>
               </tr>
             ))}

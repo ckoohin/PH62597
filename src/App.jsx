@@ -3,6 +3,7 @@ import { Link, Route, Routes } from "react-router-dom";
 import ListPage from "./pages/List";
 import Home from "./pages/Home";
 import AddPage from "./pages/Add";
+import EditPage from "./pages/Edit";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
         <Route path='/list' element={<ListPage />} />
         <Route path='/' element={<Home />} />
         <Route path='/add' element={<AddPage />} />
+        <Route path='/edit/:id' element={<EditPage />} />
         
       </Routes>
       <Toaster />
