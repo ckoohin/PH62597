@@ -1,8 +1,10 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function AddPage() {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [destination, setDetination] = useState("");
   const [duration, setDuration] = useState("");
@@ -30,7 +32,7 @@ function AddPage() {
     try {
       await axios.post("http://localhost:3000/tours", newTour);
       toast.success("Thêm tour thành công");
-      window.location.href = "/list";
+      navigate("/list");
     } catch (err) {
       toast.error("Lỗi thêm tour",err.message);
       console.error(err);

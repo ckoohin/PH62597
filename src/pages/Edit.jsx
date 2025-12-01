@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function EditPage() {
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [destination, setDetination] = useState("");
   const [duration, setDuration] = useState("");
@@ -55,7 +56,7 @@ function EditPage() {
     try {
       await axios.put(`http://localhost:3000/tours/${id}`, newTour);
       toast.success("Sửa tour thành công");
-      window.location.href = "/list";
+      navigate("/list");
     } catch (err) {
       toast.error("Lỗi sửa tour", err.message);
       console.error(err);
