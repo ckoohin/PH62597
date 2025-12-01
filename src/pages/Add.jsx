@@ -30,6 +30,7 @@ function AddPage() {
     try {
       await axios.post("http://localhost:3000/tours", newTour);
       toast.success("Thêm tour thành công");
+      window.location.href = "/list";
     } catch (err) {
       toast.error("Lỗi thêm tour",err.message);
       console.error(err);

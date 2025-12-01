@@ -57,7 +57,7 @@ function EditPage() {
       toast.success("Sửa tour thành công");
       window.location.href = "/list";
     } catch (err) {
-      toast.error("Lỗi thêm tour", err.message);
+      toast.error("Lỗi sửa tour", err.message);
       console.error(err);
     }
   };
