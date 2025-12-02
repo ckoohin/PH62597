@@ -16,7 +16,7 @@ function ListPage() {
         setTours(response.data);
         setError(null);
       } catch (err) {
-        setError("Không thể tải danh sách tours");
+        setError("Không thể tải danh sách tours",err.message);
         console.error("Error:", err);
       } finally {
         setLoading(false);

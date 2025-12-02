@@ -20,7 +20,7 @@
       "image": "https://picsum.photos/400/300?random=2",
       "description": "Du thuyền vịnh Hạ Long - Kỳ quan thiên nhiên thế giới",
       "available": 20,
-      "active": true,
+      "active": false,
       "category": "tour nội địa",
       "id": 2
     },
@@ -47,6 +47,18 @@
       "active": true,
       "category": "tour quốc tế",
       "id": 4
+    }
+  ],
+  "users": [
+    {
+      "email": "abc@example.com",
+      "password": "$2a$10$yoHd/YoXWDphkDVvZuGZr.wC4HJXHFddG5aQ.p5OZa8kj0n3TAZ7G",
+      "id": 1
+    },
+    {
+      "email": "admin@example",
+      "password": "$2a$10$.sOEIi2HiE5rOBFzcEv6JOKRPGmUuSFRkvuAUsph.84c1GmoFMUa2",
+      "id": 2
     }
   ]
 }

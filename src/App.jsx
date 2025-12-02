@@ -1,11 +1,15 @@
 import { Toaster } from "react-hot-toast";
-import { Link, Route, Routes } from "react-router-dom";
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 import ListPage from "./pages/List";
 import Home from "./pages/Home";
 import AddPage from "./pages/Add";
 import EditPage from "./pages/Edit";
+import RegisterPage from "./pages/RegisterPage";
+import LoginPage from "./pages/LoginPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
+  const navigate = useNavigate();
   return (
     <>
       <nav className="bg-blue-600 text-white shadow">
@@ -27,25 +31,60 @@ function App() {
           </div>
 
           <div className="hidden md:flex items-center space-x-6">
-            <Link to="#" className="hover:text-gray-200">
-              Đăng nhập
-            </Link>
-            <Link to="#" className="hover:text-gray-200">
-              Đăng ký
-            </Link>
+            {!localStorage.getItem("token") ? (
+              <>
+                <Link to="/login" className="hover:text-gray-200">
+                  Đăng nhập
+                </Link>
+                <Link to="/register" className="hover:text-gray-200">
+                  Đăng ký
+                </Link>
+              </>
+            ) : (
+              <button
+                onClick={() => {
+                  localStorage.removeItem("token");
+                  navigate("/login");
+                }}
+                className="hover:text-gray-200"
+              >
+                Đăng xuất
+              </button>
+            )}
           </div>
         </div>
       </nav>
 
       <Routes>
-        <Route path='/list' element={<ListPage />} />
-        <Route path='/' element={<Home />} />
-        <Route path='/add' element={<AddPage />} />
-        <Route path='/edit/:id' element={<EditPage />} />
-        
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route
+          path="/list"
+          element={
+            <ProtectedRoute>
+              <ListPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/add"
+          element={
+            <ProtectedRoute>
+              <AddPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/edit/:id"
+          element={
+            <ProtectedRoute>
+              <EditPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route path="/" element={<Home />} />
       </Routes>
       <Toaster />
-      
     </>
   );
 }
