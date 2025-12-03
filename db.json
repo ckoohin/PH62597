@@ -59,6 +59,11 @@
       "email": "admin@example",
       "password": "$2a$10$.sOEIi2HiE5rOBFzcEv6JOKRPGmUuSFRkvuAUsph.84c1GmoFMUa2",
       "id": 2
+    },
+    {
+      "email": "123@example.com",
+      "password": "$2a$10$UjDrNestaWIMS6R3M0790.wTIQsKc08aG3Az.t5wa.aHuEJIY39zW",
+      "id": 3
     }
   ]
 }

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { login } from "../services/tourService";
+import { login } from "../services/auth";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -17,7 +17,7 @@ function LoginPage() {
         }
         try {
             const res = await login({ email, password });
-            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("token", res.token);
             toast.success("Đăng nhập thành công");
             navigate("/list");
         } catch (err) {
