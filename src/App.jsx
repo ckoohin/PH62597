@@ -59,11 +59,11 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/" element={<ProtectedRoute />}>
+          <Route path="/" element={<Home />} />
           <Route path="/list" element={<ListPage />} />
           <Route path="/add" element={<AddPage />} />
           <Route path="/edit/:id" element={<EditPage />} />
         </Route>
-        <Route path="/" element={<Home />} />
       </Routes>
       <Toaster />
     </>

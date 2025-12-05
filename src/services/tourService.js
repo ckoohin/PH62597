@@ -1,11 +1,31 @@
-import axios from "axios";
+import api from "./api";
 
-const API_URL = "http://localhost:3000";
+export async function getTours() {
+  const { data } = await api.get("/tours");
+  return data;
+}
 
-export const register = (data) => {
-    return axios.post(`${API_URL}/register`, data);
-};
+export async function getTourById(id) {
+  const { data } = await api.get(`/tours/${id}`);
+  return data;
+}
 
-export const login = (data) => {
-    return axios.post(`${API_URL}/login`, data);
-};
+export async function createTour(tour) {
+  const { data } = await api.post("/tours", tour);
+  return data;
+}
+
+export async function updateTour(id, tour) {
+  const { data } = await api.put(`/tours/${id}`, tour);
+  return data;
+}
+
+export async function patchTour(id, patch) {
+  const { data } = await api.patch(`/tours/${id}`, patch);
+  return data;
+}
+
+export async function deleteTour(id) {
+  const { data } = await api.delete(`/tours/${id}`);
+  return data;
+}

@@ -1,26 +1,28 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { getTours, deleteTour, patchTour } from "../services/tourService";
 
 function ListPage() {
   const [tours, setTours] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [search, setSearch] = useState("");
+  const [categoryFilter, setCategoryFilter] = useState("");
+  const [statusFilter, setStatusFilter] = useState("");
 
   const fetchTours = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:3000/tours");
-      setTours(response.data);
-      setError(null);
+      const data = await getTours();
+      setTours(data);
     } catch (err) {
-      setError("Không thể tải danh sách tours", err.message);
       console.error("Error:", err);
+      toast.error("Không thể tải danh sách tours");
     } finally {
       setLoading(false);
     }
   };
+
   useEffect(() => {
     fetchTours();
   }, []);
@@ -36,20 +38,17 @@ function ListPage() {
   const handleDelete = async (id) => {
     try {
       if (!confirm("Bạn chắc chắn muốn xóa Tour này chứ?")) return;
-      await axios.delete(`http://localhost:3000/tours/${id}`);
+      await deleteTour(id); 
       setTours(tours.filter((t) => t.id !== id));
       toast.success("Xóa thành công");
     } catch (err) {
-      setError(err.message);
-      toast.error("Có lỗi khi xóa");
+      toast.error("Có lỗi khi xóa", err);
     }
   };
 
   const toggleStatus = async (id, currentStatus) => {
     try {
-      await axios.patch(`http://localhost:3000/tours/${id}`, {
-        active: !currentStatus,
-      });
+      await patchTour(id, { active: !currentStatus });
       fetchTours();
       toast.success("Cập nhật trạng thái thành công");
     } catch (error) {
@@ -58,9 +57,45 @@ function ListPage() {
     }
   };
 
+  const filteredTours = tours.filter((tour) => {
+    const matchSearch = tour.name.toLowerCase().includes(search.toLowerCase());
+    const matchCategory = categoryFilter ? tour.category === categoryFilter : true;
+    const matchStatus = statusFilter ? statusFilter === "active" ? tour.active === true : tour.active === false : true;
+    return matchSearch && matchCategory && matchStatus;
+  });
+
   return (
     <div className="p-6">
       <h1 className="text-2xl text-center font-semibold mb-6">Danh sách</h1>
+      <div className="flex flex-wrap gap-4 mb-6">
+        <input
+          type="text"
+          placeholder="Tìm theo tên..."
+          className="px-4 py-2 border rounded w-64"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
+
+        <select
+          className="px-4 py-2 border rounded"
+          value={categoryFilter}
+          onChange={(e) => setCategoryFilter(e.target.value)}
+        >
+          <option value="">Tất cả danh mục</option>
+          <option value="tour nội địa">Tour nội địa</option>
+          <option value="tour châu âu">Tour châu âu</option>
+        </select>
+
+        <select
+          className="px-4 py-2 border rounded"
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
+          <option value="">Tất cả trạng thái</option>
+          <option value="active">Hoạt động</option>
+          <option value="inactive">Đã ngừng</option>
+        </select>
+      </div>
 
       <div className="overflow-x-auto">
         <table className="w-full border border-gray-300 rounded-lg">
@@ -101,7 +136,7 @@ function ListPage() {
           </thead>
 
           <tbody>
-            {tours.map((tour) => (
+            {filteredTours.map((tour) => (
               <tr className="hover:bg-gray-50" key={tour.id}>
                 <td className="px-4 py-2 border border-gray-300">{tour.id}</td>
                 <td className="px-4 py-2 border border-gray-300">
@@ -159,6 +194,11 @@ function ListPage() {
             ))}
           </tbody>
         </table>
+        {filteredTours.length === 0 && (
+          <div className="text-center py-6 text-gray-500">
+            Không tìm thấy tour nào.
+          </div>
+        )}
       </div>
     </div>
   );

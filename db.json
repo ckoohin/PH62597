@@ -37,15 +37,15 @@
       "active": true
     },
     {
-      "name": "Test",
-      "destination": "abc",
-      "duration": "4 ngày 3 đêm",
-      "price": 100000,
+      "name": "Tour Hạ long - Hà Nội",
+      "destination": "Hạ Long",
+      "duration": "2 ngày 1 đêm",
+      "price": 1000000,
       "image": "https://picsum.photos/400/300?random=3",
-      "description": "abc",
-      "available": 20,
+      "description": "Đẹp lung linh long lanh",
+      "available": 10,
       "active": true,
-      "category": "tour quốc tế",
+      "category": "tour nội địa",
       "id": 4
     }
   ],
@@ -56,14 +56,9 @@
       "id": 1
     },
     {
-      "email": "admin@example",
-      "password": "$2a$10$.sOEIi2HiE5rOBFzcEv6JOKRPGmUuSFRkvuAUsph.84c1GmoFMUa2",
-      "id": 2
-    },
-    {
       "email": "123@example.com",
-      "password": "$2a$10$UjDrNestaWIMS6R3M0790.wTIQsKc08aG3Az.t5wa.aHuEJIY39zW",
-      "id": 3
+      "password": "$2a$10$63.tuoSjvHilP8bUmxKynuvkqLootxL3As/gmrzxOQGUIfstwc/U6",
+      "id": 2
     }
   ]
 }

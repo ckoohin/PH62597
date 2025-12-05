@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
-import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { getTourById, updateTour } from "../services/tourService";
 
 function EditPage() {
   const navigate = useNavigate();
@@ -19,17 +19,16 @@ function EditPage() {
 
   const getTour = async (id) => {
     try {
-      const res = await axios.get(`http://localhost:3000/tours/${id}`);
-      const tour = res.data;
-      setName(tour.name);
-      setDetination(tour.destination);
-      setDuration(tour.duration);
-      setPrice(tour.price);
-      setImage(tour.image);
-      setDescription(tour.description);
-      setAvailable(tour.available);
-      setActive(tour.active);
-      setCategory(tour.category);
+      const res = await getTourById(id);
+      setName(res.name);
+      setDetination(res.destination);
+      setDuration(res.duration);
+      setPrice(res.price);
+      setImage(res.image);
+      setDescription(res.description);
+      setAvailable(res.available);
+      setActive(res.active);
+      setCategory(res.category);
     } catch (err) {
       toast.error("Error: " + err.message);
     }
@@ -41,6 +40,55 @@ function EditPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!name.trim()) {
+      return toast.error("Tên tour không được bỏ trống");
+    }
+    if (name.length < 5 || name.length > 100) {
+      return toast.error("Tên tour phải từ 5 đến 100 ký tự");
+    }
+
+    if (!destination.trim()) {
+      return toast.error("Điểm đến không được bỏ trống");
+    }
+    if (destination.length < 2 || destination.length > 50) {
+      return toast.error("Điểm đến phải từ 2 đến 50 ký tự");
+    }
+
+    if (!duration.trim()) {
+      return toast.error("Thời gian tour không được bỏ trống");
+    }
+
+    if (!price || isNaN(price) || Number(price) <= 0) {
+      return toast.error("Giá tour phải là số lớn hơn 0");
+    }
+
+    const urlRegex =
+      /^(https?:\/\/)[\w.-]+(\.[\w.-]+)+(\/[\w._~:/?#[\]@!$&'()*+,;=-]*)?$/;
+    if (!image.trim()) {
+      return toast.error("URL hình ảnh không được bỏ trống");
+    }
+    if (!urlRegex.test(image)) {
+      return toast.error("URL hình ảnh không hợp lệ");
+    }
+
+    if (!description.trim()) {
+      return toast.error("Mô tả không được bỏ trống");
+    }
+    if (description.length < 10 || description.length > 1000) {
+      return toast.error("Mô tả phải từ 10 đến 1000 ký tự");
+    }
+
+    if (available === "" || isNaN(available) || Number(available) < 0) {
+      return toast.error("Số lượng chỗ phải là số ≥ 0");
+    }
+
+    if (!category) {
+      return toast.error("Vui lòng chọn loại tour");
+    }
+
+    if (!["tour nội địa", "tour quốc tế"].includes(category)) {
+      return toast.error("Loại tour không hợp lệ");
+    }
     const newTour = {
       name,
       destination,
@@ -54,7 +102,7 @@ function EditPage() {
     };
 
     try {
-      await axios.put(`http://localhost:3000/tours/${id}`, newTour);
+      await updateTour(id, newTour);
       toast.success("Sửa tour thành công");
       navigate("/list");
     } catch (err) {
@@ -67,7 +115,7 @@ function EditPage() {
     <div className="flex justify-center p-6">
       <div className="w-full max-w-xl bg-white shadow-lg rounded-xl p-6 border">
         <h1 className="text-center text-2xl font-semibold mb-6">
-          Thêm Tour Mới
+          Sửa Tour
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-5">
@@ -168,7 +216,7 @@ function EditPage() {
             type="submit"
             className="w-full py-3 rounded-lg bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
           >
-            Thêm tour mới
+            Cập Nhật Tour
           </button>
         </form>
       </div>
